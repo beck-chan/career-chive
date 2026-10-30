@@ -350,7 +350,7 @@ export function SettingsForm({
   }, [isEditing, tab]);
   const headingName =
     (isEditing && editing ? editing.name.trim() : selected?.name.trim()) ||
-    "new organization";
+    "Add Organization";
   const bulkBounds = selected
     ? orgRange(selected, settings.archiveStartDate, today)
     : loggingWindow(settings.archiveStartDate, "", "", today);
