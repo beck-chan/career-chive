@@ -2,13 +2,13 @@
 
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { portalRoot } from "@/lib/theme";
+import { portalRoot } from "../lib/theme";
 import {
   TODAY,
   addMonths,
   daysInMonth,
   isoDate,
-} from "@/lib/data";
+} from "../lib/data";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 const MONTHS = [

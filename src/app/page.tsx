@@ -1,10 +1,6 @@
-import { ArchiveView } from "@/components/ArchiveView";
+export {
+  CareerChiveArchivePage as default,
+  careerchiveArchiveMetadata as metadata,
+} from "../entries/pages";
 
-export default async function OrganizationsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ org?: string; iso?: string }>;
-}) {
-  const { org, iso } = await searchParams;
-  return <ArchiveView queryOrg={org} queryIso={iso} />;
-}
+export const dynamic = "force-dynamic";

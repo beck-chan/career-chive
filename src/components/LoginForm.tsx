@@ -2,9 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { loginAction } from "@/app/actions/auth";
-import { PasswordField } from "@/components/PasswordField";
-import { careerchiveHref } from "@/lib/paths";
+import { loginAction } from "../app/actions/auth";
+import { PasswordField } from "./PasswordField";
+import { careerchiveHref } from "../lib/paths";
 
 export function LoginForm() {
   const router = useRouter();

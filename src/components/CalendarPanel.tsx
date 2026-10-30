@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeDateField } from "@/components/ThemeDateField";
+import { ThemeDateField } from "./ThemeDateField";
 import {
   TODAY,
   addMonths,
@@ -10,7 +10,7 @@ import {
   isOnOrAfterDateInactive,
   monthLabel,
   unavailableDayLabel,
-} from "@/lib/data";
+} from "../lib/data";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 const DEFAULT_WINDOW = 3;

@@ -4,8 +4,8 @@ import {
   TODAY,
   type DayEntry,
   type Org,
-} from "@/lib/data";
-import { archiveDayHref } from "@/lib/paths";
+} from "./data";
+import { archiveDayHref } from "./paths";
 
 export const CHIVEBOT_DOCS_HREF = "https://career-chive.vercel.app/docs/chatbot";
 

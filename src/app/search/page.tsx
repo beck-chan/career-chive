@@ -1,5 +1,6 @@
-import { SearchShell } from "@/components/SearchShell";
+export {
+  CareerChiveSearchPage as default,
+  careerchiveSearchMetadata as metadata,
+} from "../../entries/pages";
 
-export default function SearchPage() {
-  return <SearchShell />;
-}
+export const dynamic = "force-dynamic";

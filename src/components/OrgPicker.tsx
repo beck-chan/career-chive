@@ -2,13 +2,13 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import type { Org, OrgSort, OrgStatusFilter } from "@/lib/data";
+import type { Org, OrgSort, OrgStatusFilter } from "../lib/data";
 
 export {
   organizationAddHref,
   organizationHref,
   organizationEditHref,
-} from "@/lib/paths";
+} from "../lib/paths";
 
 export function AddOrganizationLink({ href }: { href: string }) {
   return (

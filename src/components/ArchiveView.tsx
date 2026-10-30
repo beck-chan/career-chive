@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ModalShell } from "@/components/ModalShell";
-import { CalendarPanel } from "@/components/CalendarPanel";
-import { ThemeDateField } from "@/components/ThemeDateField";
-import { DayPanel } from "@/components/DayPanel";
-import { MobileFilters } from "@/components/MobileFilters";
-import { EmptyBody, ErrorBody } from "@/components/PageStates";
+import { ModalShell } from "./ModalShell";
+import { CalendarPanel } from "./CalendarPanel";
+import { ThemeDateField } from "./ThemeDateField";
+import { DayPanel } from "./DayPanel";
+import { MobileFilters } from "./MobileFilters";
+import { EmptyBody, ErrorBody } from "./PageStates";
 import {
   AddOrganizationLink,
   OrgNameMenu,
@@ -14,8 +14,8 @@ import {
   SetDateActiveLink,
   organizationAddHref,
   organizationEditHref,
-} from "@/components/OrgPicker";
-import { useDemo } from "@/lib/demo";
+} from "./OrgPicker";
+import { useDemo } from "../lib/demo";
 import {
   addMonths,
   clampIsoToWindow,
@@ -32,8 +32,8 @@ import {
   type Org,
   type OrgSort,
   type OrgStatusFilter,
-} from "@/lib/data";
-import { archiveDayHref } from "@/lib/paths";
+} from "../lib/data";
+import { archiveDayHref } from "../lib/paths";
 
 const CAL_WINDOW = 3;
 const PICKER_WINDOW = 6;

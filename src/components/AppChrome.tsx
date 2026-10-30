@@ -6,36 +6,35 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { logoutAction } from "@/app/actions/auth";
-import { useDemo } from "@/lib/demo";
-import { ThemeDateField } from "@/components/ThemeDateField";
-import { LoadingBody } from "@/components/PageStates";
-import { LoginForm } from "@/components/LoginForm";
-import { ModalShell } from "@/components/ModalShell";
-import { PasswordField } from "@/components/PasswordField";
-import { flags } from "@/lib/flags";
+import { logoutAction } from "../app/actions/auth";
+import { useDemo } from "../lib/demo";
+import { ThemeDateField } from "./ThemeDateField";
+import { LoadingBody } from "./PageStates";
+import { LoginForm } from "./LoginForm";
+import { ModalShell } from "./ModalShell";
+import { PasswordField } from "./PasswordField";
+import { flags } from "../lib/flags";
 import {
   careerchiveHref,
   careerchiveOrganizationsPath,
   isCareerchiveRoute,
-} from "@/lib/paths";
+} from "../lib/paths";
 import {
   DEFAULT_TIMEZONE,
   normalizeTimeZone,
   timeZoneOptions,
   timeZoneSelectLabel,
   todayIso,
-} from "@/lib/data";
+} from "../lib/data";
 import {
   DEFAULT_THEME,
   applyAppTheme,
   getThemeSnapshot,
   subscribeTheme,
   writeTheme,
-} from "@/lib/theme";
+} from "../lib/theme";
 
 const TIME_ZONES = timeZoneOptions();
 
@@ -68,24 +67,32 @@ export function requestOpenSettings(tab: SettingsTab = "archive") {
 function Wordmark() {
   return (
     <>
-      <Image
+      <svg
         className="app-wordmark-mark is-light"
-        src="/favicon-light.svg"
-        alt=""
-        width={32}
-        height={32}
+        viewBox="0 0 32 32"
         aria-hidden="true"
-        unoptimized
-      />
-      <Image
+      >
+        <g fill="#4f263d" transform="translate(0 18.1) scale(0.0185 -0.0185)">
+          <path d="M579 458 567 327H548Q527 401 492.5 436.5Q458 472 392 472Q319 472 288.5 421Q258 370 258 270Q258 187 271 136Q284 85 318 58.5Q352 32 414 32Q461 32 500 45.5Q539 59 577 85L590 66Q543 30 484.5 9Q426 -12 348 -12Q207 -12 128.5 53Q50 118 50 249Q50 373 132 435.5Q214 498 374 498Q499 498 579 458Z" />
+        </g>
+        <g fill="#4f263d" transform="translate(20.16 22.9) scale(0.0185 -0.0185)">
+          <path d="M579 458 567 327H548Q527 401 492.5 436.5Q458 472 392 472Q319 472 288.5 421Q258 370 258 270Q258 187 271 136Q284 85 318 58.5Q352 32 414 32Q461 32 500 45.5Q539 59 577 85L590 66Q543 30 484.5 9Q426 -12 348 -12Q207 -12 128.5 53Q50 118 50 249Q50 373 132 435.5Q214 498 374 498Q499 498 579 458Z" />
+        </g>
+        <path fill="#61683b" d="M 9.05 27.6 L 12.76 27.6 L 22.96 4.4 L 19.25 4.4 Z" />
+      </svg>
+      <svg
         className="app-wordmark-mark is-dark"
-        src="/favicon-dark.svg"
-        alt=""
-        width={32}
-        height={32}
+        viewBox="0 0 32 32"
         aria-hidden="true"
-        unoptimized
-      />
+      >
+        <g fill="#ebe6ed" transform="translate(0 18.1) scale(0.0185 -0.0185)">
+          <path d="M579 458 567 327H548Q527 401 492.5 436.5Q458 472 392 472Q319 472 288.5 421Q258 370 258 270Q258 187 271 136Q284 85 318 58.5Q352 32 414 32Q461 32 500 45.5Q539 59 577 85L590 66Q543 30 484.5 9Q426 -12 348 -12Q207 -12 128.5 53Q50 118 50 249Q50 373 132 435.5Q214 498 374 498Q499 498 579 458Z" />
+        </g>
+        <g fill="#ebe6ed" transform="translate(20.16 22.9) scale(0.0185 -0.0185)">
+          <path d="M579 458 567 327H548Q527 401 492.5 436.5Q458 472 392 472Q319 472 288.5 421Q258 370 258 270Q258 187 271 136Q284 85 318 58.5Q352 32 414 32Q461 32 500 45.5Q539 59 577 85L590 66Q543 30 484.5 9Q426 -12 348 -12Q207 -12 128.5 53Q50 118 50 249Q50 373 132 435.5Q214 498 374 498Q499 498 579 458Z" />
+        </g>
+        <path fill="#c5cba3" d="M 9.05 27.6 L 12.76 27.6 L 22.96 4.4 L 19.25 4.4 Z" />
+      </svg>
       <span className="app-wordmark-text">
         <span className="app-wordmark-career">Career</span>
         <span className="app-wordmark-chive">Chive</span>

@@ -23,11 +23,11 @@ import {
   updateLogin as updateLoginAction,
   updateTimezone as updateTimezoneAction,
   type ArchiveSnapshot,
-} from "@/app/actions/archive";
+} from "../app/actions/archive";
 import {
   createAttachmentUpload,
   uploadAttachmentBytes,
-} from "@/app/actions/attachments";
+} from "../app/actions/attachments";
 import {
   DEFAULT_SETTINGS,
   emptyDay,
@@ -37,8 +37,8 @@ import {
   type DayEntry,
   type Org,
   type Settings,
-} from "@/lib/data";
-import { careerchiveHref } from "@/lib/paths";
+} from "./data";
+import { careerchiveHref } from "./paths";
 
 type StoreStatus = "loading" | "ready" | "error" | "signedOut";
 

@@ -1,5 +1,6 @@
-import { OverviewView } from "@/components/OverviewView";
+export {
+  CareerChiveOverviewPage as default,
+  careerchiveOverviewMetadata as metadata,
+} from "../../entries/pages";
 
-export default function OverviewPage() {
-  return <OverviewView />;
-}
+export const dynamic = "force-dynamic";

@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { CopyableUrlField } from "@/components/CopyableUrlField";
-import { NotesEditor } from "@/components/NotesEditor";
-import { ModalShell } from "@/components/ModalShell";
+import { CopyableUrlField } from "./CopyableUrlField";
+import { NotesEditor } from "./NotesEditor";
+import { ModalShell } from "./ModalShell";
 import {
   ATTENDANCE_OPTIONS,
   RATING_FACES,
@@ -13,7 +13,7 @@ import {
   type ArtifactRow,
   type DayEntry,
   type WorkRow,
-} from "@/lib/data";
+} from "../lib/data";
 
 const DAY_TABS = [
   { id: "attendance", label: "Attendance" },

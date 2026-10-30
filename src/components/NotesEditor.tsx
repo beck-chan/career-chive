@@ -2,8 +2,8 @@
 
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { portalRoot } from "@/lib/theme";
-import { ModalShell } from "@/components/ModalShell";
+import { portalRoot } from "../lib/theme";
+import { ModalShell } from "./ModalShell";
 import {
   $createParagraphNode,
   $getRoot,

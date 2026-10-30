@@ -1,23 +1,9 @@
+import type { NextConfig } from "next";
 import { careerchivePath, careerchiveOrganizationsPath } from "./paths";
 
 type Rewrite = { source: string; destination: string };
 
 type Redirect = { source: string; destination: string; permanent: boolean };
-
-type RewriteResult =
-  | Rewrite[]
-  | {
-      beforeFiles?: Rewrite[];
-      afterFiles?: Rewrite[];
-      fallback?: Rewrite[];
-    };
-
-type CareerChiveHostConfig = {
-  transpilePackages?: string[];
-  serverExternalPackages?: string[];
-  rewrites?: RewriteResult | (() => RewriteResult | Promise<RewriteResult>);
-  redirects?: Redirect[] | (() => Redirect[] | Promise<Redirect[]>);
-};
 
 function careerchiveRewrites(): Rewrite[] {
   const app = careerchivePath();
@@ -40,14 +26,18 @@ function careerchiveRedirects(): Redirect[] {
   ];
 }
 
-export function withCareerChiveConfig<T extends CareerChiveHostConfig>(
-  config: T = {} as T,
-) {
+export function withCareerChiveConfig(config: NextConfig = {}): NextConfig {
   const extraRewrites = careerchiveRewrites();
   const extraRedirects = careerchiveRedirects();
 
   return {
     ...config,
+    env: {
+      ...config.env,
+      FLAG_PRIVATE: process.env.FLAG_PRIVATE ?? config.env?.FLAG_PRIVATE ?? "",
+      FLAG_CHIVEBOT:
+        process.env.FLAG_CHIVEBOT ?? config.env?.FLAG_CHIVEBOT ?? "",
+    },
     transpilePackages: [
       ...new Set([...(config.transpilePackages ?? []), "career-chive"]),
     ],
@@ -60,14 +50,16 @@ export function withCareerChiveConfig<T extends CareerChiveHostConfig>(
     ],
     async rewrites() {
       const existing = config.rewrites;
-      if (!existing) return extraRewrites;
+      if (!existing) return { fallback: extraRewrites };
       const resolved =
         typeof existing === "function" ? await existing() : existing;
-      if (Array.isArray(resolved)) return [...resolved, ...extraRewrites];
+      if (Array.isArray(resolved)) {
+        return { afterFiles: resolved, fallback: extraRewrites };
+      }
       return {
         beforeFiles: resolved.beforeFiles,
-        afterFiles: [...(resolved.afterFiles ?? []), ...extraRewrites],
-        fallback: resolved.fallback,
+        afterFiles: resolved.afterFiles,
+        fallback: [...(resolved.fallback ?? []), ...extraRewrites],
       };
     },
     async redirects() {

@@ -1,18 +1,18 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { clientIp } from "@/lib/clientIp";
-import { flags } from "@/lib/flags";
-import { verifyPassword } from "@/lib/password";
+import { clientIp } from "../../lib/clientIp";
+import { flags } from "../../lib/flags";
+import { verifyPassword } from "../../lib/password";
 import {
   SESSION_COOKIE,
   sessionCookieOptions,
   signSession,
-} from "@/lib/session";
+} from "../../lib/session";
 import {
   createAdminClient,
   supabaseConnectionOk,
-} from "@/lib/supabase";
+} from "../../lib/supabase";
 
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_FAILURES = 3;

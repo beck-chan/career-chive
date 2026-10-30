@@ -1,4 +1,4 @@
-import { addMonths, daysInMonth, isoDate, type DayEntry } from "@/lib/data";
+import { addMonths, daysInMonth, isoDate, type DayEntry } from "./data";
 
 export type Period = "week" | "month" | "quarter" | "year" | "rolling" | "all";
 

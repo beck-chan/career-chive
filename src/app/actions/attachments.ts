@@ -1,6 +1,6 @@
 "use server";
 
-import { requireSession } from "@/lib/session";
+import { requireSession } from "../../lib/session";
 import {
   attachmentObjectKey,
   isAttachmentKey,
@@ -8,7 +8,7 @@ import {
   putObject,
   r2DashboardObjectUrl,
   signedPutUrl,
-} from "@/lib/r2";
+} from "../../lib/r2";
 
 export async function createAttachmentUpload(input: {
   orgId: string;

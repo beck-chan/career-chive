@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-import { flags } from "@/lib/flags";
+import { flags } from "../../../lib/flags";
 import {
   attachmentObjectKey,
   isAttachmentKey,
   putObject,
   signedGetUrl,
-} from "@/lib/r2";
-import { readSessionToken, SESSION_COOKIE } from "@/lib/session";
+} from "../../../lib/r2";
+import { readSessionToken, SESSION_COOKIE } from "../../../lib/session";
 
 async function allow(request: NextRequest) {
   if (!flags.private) return true;

@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { MobileFilters } from "@/components/MobileFilters";
-import { archiveDayHref } from "@/lib/paths";
+import { MobileFilters } from "./MobileFilters";
+import { archiveDayHref } from "../lib/paths";
 import {
   AddOrganizationLink,
   OrgNameMenu,
@@ -11,11 +11,11 @@ import {
   SetDateActiveLink,
   organizationAddHref,
   organizationEditHref,
-} from "@/components/OrgPicker";
-import { EmptyBody, ErrorBody } from "@/components/PageStates";
-import { attachmentDashboardUrls } from "@/app/actions/attachments";
-import { ModalShell } from "@/components/ModalShell";
-import { useDemo } from "@/lib/demo";
+} from "./OrgPicker";
+import { EmptyBody, ErrorBody } from "./PageStates";
+import { attachmentDashboardUrls } from "../app/actions/attachments";
+import { ModalShell } from "./ModalShell";
+import { useDemo } from "../lib/demo";
 import {
   ATTENDANCE_OPTIONS,
   RATING_FACES,
@@ -31,7 +31,7 @@ import {
   type OrgSort,
   type OrgStatusFilter,
   type WorkRow,
-} from "@/lib/data";
+} from "../lib/data";
 import {
   isoDay,
   periodExportLabel,
@@ -39,7 +39,7 @@ import {
   periodRange,
   type Period,
   viewCursors,
-} from "@/lib/periods";
+} from "../lib/periods";
 
 const OVERVIEW_SECTIONS = [
   { id: "logged", label: "Logged Days" },

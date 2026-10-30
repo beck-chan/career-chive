@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { flags } from "@/lib/flags";
+import { flags } from "./flags";
 
 export const SESSION_COOKIE = "careerchive_session";
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7;

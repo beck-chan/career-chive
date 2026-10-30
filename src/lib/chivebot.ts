@@ -7,10 +7,10 @@ import {
   parseAttendance,
   todayIso,
   type DayEntry,
-} from "@/lib/data";
-import { HIDDEN_ORG_NOTE, type ArchiveDayLink } from "@/lib/chivebotChat";
-import { flags } from "@/lib/flags";
-import { embedText, embedTexts, isGeminiError } from "@/lib/gemini";
+} from "./data";
+import { HIDDEN_ORG_NOTE, type ArchiveDayLink } from "./chivebotChat";
+import { flags } from "./flags";
+import { embedText, embedTexts, isGeminiError } from "./gemini";
 
 export const CHIVEBOT_SYSTEM_PROMPT =
   "You are ChiveBot for CareerChive. Answer only from the archive excerpts provided. Prefer a short paragraph. When you refer to a specific day, include an inline markdown link to that Archive day. Use bulleted lists if you need to link to more than three days. Only cite days from the excerpts; days before Archive Start, before Date Active, or on or after Date Inactive are not in this archive view. If a day or organization is marked as a hidden organization, say that in the reply. If the excerpts do not contain the answer, say you could not find anything in the archive. Do not fabricate entries.";

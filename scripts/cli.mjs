@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import {
@@ -116,7 +116,9 @@ async function askHidden(prompt) {
 }
 
 async function login() {
-  const outFile = path.join(packageRoot, "scripts/login.sql");
+  const outDir = path.join(process.cwd(), "scripts");
+  await mkdir(outDir, { recursive: true });
+  const outFile = path.join(outDir, "login.sql");
   const rl = createInterface({ input, output });
   let username = "";
   let password = "";
@@ -176,7 +178,7 @@ set
 `;
 
   await writeFile(outFile, sql, "utf8");
-  console.log(`Wrote ${outFile}`);
+  console.log("Wrote scripts/login.sql");
   if (!encrypted) {
     console.log(
       "SESSION_SECRET missing; password_encrypted left null. First Settings → Update Login fills it.",

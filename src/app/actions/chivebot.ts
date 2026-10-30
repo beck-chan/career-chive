@@ -10,17 +10,17 @@ import {
   loadArchiveOverview,
   matchChivebotEntries,
   toVectorLiteral,
-} from "@/lib/chivebot";
+} from "../../lib/chivebot";
 import {
   citationTargets,
   linkArchiveDays,
   normalizeChatMarkdown,
   type ArchiveDayLink,
-} from "@/lib/chivebotChat";
-import { flags } from "@/lib/flags";
-import { generateText, geminiKind, isGeminiConfigured } from "@/lib/gemini";
-import { requireSession } from "@/lib/session";
-import { createAdminClient, isSupabaseConfigured } from "@/lib/supabase";
+} from "../../lib/chivebotChat";
+import { flags } from "../../lib/flags";
+import { generateText, geminiKind, isGeminiConfigured } from "../../lib/gemini";
+import { requireSession } from "../../lib/session";
+import { createAdminClient, isSupabaseConfigured } from "../../lib/supabase";
 
 const CHIVEBOT_COOKIE = "chivebot_session";
 const HISTORY_LIMIT = 12;

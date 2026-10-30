@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { PasswordField, requestOpenSettings } from "@/components/AppChrome";
-import { ModalShell } from "@/components/ModalShell";
-import { MobileFilters } from "@/components/MobileFilters";
-import { OrgNameMenu, OrgPicker } from "@/components/OrgPicker";
-import { ThemeDateField } from "@/components/ThemeDateField";
-import { CopyableUrlField } from "@/components/CopyableUrlField";
-import { EmptyBody, ErrorBody } from "@/components/PageStates";
-import { useDemo } from "@/lib/demo";
-import { organizationHref } from "@/lib/paths";
+import { PasswordField, requestOpenSettings } from "./AppChrome";
+import { ModalShell } from "./ModalShell";
+import { MobileFilters } from "./MobileFilters";
+import { OrgNameMenu, OrgPicker } from "./OrgPicker";
+import { ThemeDateField } from "./ThemeDateField";
+import { CopyableUrlField } from "./CopyableUrlField";
+import { EmptyBody, ErrorBody } from "./PageStates";
+import { useDemo } from "../lib/demo";
+import { organizationHref } from "../lib/paths";
 import {
   WEEKDAYS,
   todayIso,
@@ -29,7 +29,7 @@ import {
   type Org,
   type OrgSort,
   type OrgStatusFilter,
-} from "@/lib/data";
+} from "../lib/data";
 
 const ORG_SECTIONS = [
   { id: "name", label: "Name" },

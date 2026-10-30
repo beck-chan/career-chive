@@ -2,8 +2,24 @@
   "name": "career-chive",
   "version": "0.1.0",
   "private": true,
+  "description": "Drop-in CareerChive for Next.js App Router. Install from GitHub.",
   "bin": {
     "career-chive": "./scripts/cli.mjs"
+  },
+  "files": [
+    "package",
+    "src",
+    "public",
+    "scripts/cli.mjs",
+    "scripts/schema.sql",
+    "scripts/chivebot.sql",
+    ".env.example"
+  ],
+  "exports": {
+    ".": "./package/index.ts",
+    "./attachments": "./package/attachments.ts",
+    "./config": "./package/config.ts",
+    "./styles.css": "./package/styles.css"
   },
   "scripts": {
     "dev": "next dev",
@@ -23,12 +39,18 @@
     "@lexical/selection": "^0.52.0",
     "@lexical/utils": "^0.52.0",
     "@supabase/supabase-js": "^2.118.0",
-    "lexical": "^0.52.0",
-    "next": "16.3.3",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "lexical": "^0.52.0"
+  },
+  "peerDependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "next": "16.3.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

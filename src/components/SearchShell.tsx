@@ -12,24 +12,24 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { MobileFilters } from "@/components/MobileFilters";
-import { ModalShell } from "@/components/ModalShell";
-import { ThemeDateField } from "@/components/ThemeDateField";
-import { portalRoot } from "@/lib/theme";
+import { MobileFilters } from "./MobileFilters";
+import { ModalShell } from "./ModalShell";
+import { ThemeDateField } from "./ThemeDateField";
+import { portalRoot } from "../lib/theme";
 import {
   AddOrganizationLink,
   HiddenToggle,
   OrgStatusSelect,
   organizationAddHref,
-} from "@/components/OrgPicker";
+} from "./OrgPicker";
 import {
   clearChivebotChat,
   loadChivebotChat,
   sendChivebotMessage,
   type ChivebotChatMessage,
-} from "@/app/actions/chivebot";
-import { EmptyBody, ErrorBody } from "@/components/PageStates";
-import { useDemo } from "@/lib/demo";
+} from "../app/actions/chivebot";
+import { EmptyBody, ErrorBody } from "./PageStates";
+import { useDemo } from "../lib/demo";
 import {
   CHIVEBOT_DISABLED_COPY,
   CHIVEBOT_DOCS_HREF,
@@ -43,9 +43,9 @@ import {
   type ChatBlock,
   type ChatInline,
   type ChatPart,
-} from "@/lib/chivebotChat";
-import { flags } from "@/lib/flags";
-import { archiveDayHref } from "@/lib/paths";
+} from "../lib/chivebotChat";
+import { flags } from "../lib/flags";
+import { archiveDayHref } from "../lib/paths";
 import {
   ATTENDANCE_OPTIONS,
   RATING_FACES,
@@ -58,14 +58,14 @@ import {
   type DayEntry,
   type Org,
   type OrgStatusFilter,
-} from "@/lib/data";
+} from "../lib/data";
 import {
   periodLabel,
   periodRange,
   weekLabelParts,
   type Period,
   viewCursors,
-} from "@/lib/periods";
+} from "../lib/periods";
 
 type ChatMsg = {
   id: string;

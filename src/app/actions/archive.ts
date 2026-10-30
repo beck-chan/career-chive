@@ -17,25 +17,25 @@ import {
   type Org,
   type Settings,
   type WorkRow,
-} from "@/lib/data";
+} from "../../lib/data";
 import {
   decryptPassword,
   encryptPassword,
   hashPassword,
   verifyPassword,
-} from "@/lib/password";
+} from "../../lib/password";
 import {
   clearChivebotSessions,
   deleteDayEmbeddings,
   syncDayEmbeddings,
-} from "@/lib/chivebot";
-import { flags } from "@/lib/flags";
-import { getSession, requireSession } from "@/lib/session";
+} from "../../lib/chivebot";
+import { flags } from "../../lib/flags";
+import { getSession, requireSession } from "../../lib/session";
 import {
   createAdminClient,
   isSupabaseConfigured,
   supabaseConnectionOk,
-} from "@/lib/supabase";
+} from "../../lib/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 export type ArchiveSnapshot = {
@@ -49,7 +49,7 @@ export type ActionResult<T = void> =
 
 async function deleteAttachmentKeys(keys: string[]) {
   if (!keys.length) return;
-  const { deleteObject } = await import("@/lib/r2");
+  const { deleteObject } = await import("../../lib/r2");
   await Promise.all(keys.map((key) => deleteObject(key)));
 }
 

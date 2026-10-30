@@ -1,22 +1,43 @@
 # CareerChive
 
-## App path
+> [!NOTE]
+> What is **CareerChive**? A bad portmanteau of career and archive, and a personal tracking tool purpose-built to help you gain oversight over your professional accomplishments and experiences at work.
 
-Installers choose where the app lives with `NEXT_PUBLIC_CAREERCHIVE_PATH` (no trailing slash). Default `/` is this repo as a standalone site.
+I built **CareerChive** after using many, many other productivity tool suites to log my daily notes and completed work. No matter what option I chose, the customization process was cumbersome, and manually creating daily entries was tedious. Even after extensive configuration the interfaces did not seem to allow me to capture exactly what I wanted in an intuitive manner, or display analytics in a way that was useful to me in one centralized place.
 
-- Standalone: omit the variable, or set `NEXT_PUBLIC_CAREERCHIVE_PATH=/`.
-- Nested in a host (for example career-chive): `NEXT_PUBLIC_CAREERCHIVE_PATH=/beck`. Organizations is `{app}/organizations` (old `{app}/settings` redirects there); Archive, Overview, and Search nest under `{app}`.
+<!-- For each organization you track with <WordmarkText />, you can auto-generate new daily entries for you to fill in, or use the integrated MCP server to assist you with populating your daily entries. Each day allows you to:  -->
 
-Styles stay on the `.careerchive-app` wrapper (`careerchive-app-theme` in localStorage) so a host site’s theme is unchanged.
+For each organization you track with **CareerChive**, you can auto-generate new daily entries for you to fill in. Each day allows you to:
 
-## GitHub Actions
+- Track attendance and reasons for being absent.
+- Log completed work and supporting artifacts by each individual item via drag-and-drop editors.
+- Enter rich text notes and comments.
+- Rate how you felt that day at work. 😠 🙁 😐 🙂 😄
 
-The keep-alive workflow pings `settings?select=id&limit=1` so a free-tier project stays awake. `public.settings` is RLS-protected with no anon grant, so the publishable key cannot read it.
+After you've entered some daily logs, you can then:
 
-Set these as GitHub Actions repository secrets (Settings → Secrets and variables → Actions):
+- Glean insights about your logging habits, attendance, work you've completed, and mood ratings over time.
+- Search your daily logs by keyword and ask the assistant ChiveBot for information about your logs.
+<!-- - Use the integrated MCP server to interact with your daily logs.  -->
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `SUPABASE_SECRET_KEY` — Data API secret (`sb_secret_…` from Publishable and secret API keys). Not the publishable/anon key. Not Legacy `service_role`.
+**CareerChive** is about mindfulness. Taking stock of each day as part of your routine, and recognizing your accomplishments as you go. As you complete more and more daily logs, you'll have more data to help you identify patterns and trends, and accumulate more evidence of your growth and progress over time.
 
-The job fails if either is missing. An example workflow lives at [`.github/examples/supabase-keep-alive.yml.example`](.github/examples/supabase-keep-alive.yml.example).
+## Documentation
+
+| Quickstart | CareerChive Docs |
+|--|--|
+| Get started without an existing Next.js app. | Full documentation for all the included features. | 
+| https://career-chive.vercel.app/docs/quickstart | https://career-chive.vercel.app/docs/ | 
+
+### Issues
+
+| Log Issue | Open Pull Request |
+|--|--|
+| Found a bug? Let me know. | Want to contribute an update? Go ahead! | 
+| https://github.com/beck-chan/career-chive/issues | https://github.com/beck-chan/career-chive/pulls | 
+
+
+## Support
+
+> If you liked this application and found it neat, please consider donating via Ko-fi: [https://ko-fi.com/beckchan](https://ko-fi.com/beckchan)
 
