@@ -47,17 +47,3 @@ export function isCareerchiveRoute(pathname: string, route: string) {
   }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
-
-export function organizationsSearchHref(search: {
-  add?: string;
-  org?: string;
-  edit?: string;
-}) {
-  const base = careerchiveOrganizationsPath();
-  const params = new URLSearchParams();
-  if (search.add) params.set("add", search.add);
-  if (search.org) params.set("org", search.org);
-  if (search.edit) params.set("edit", search.edit);
-  const qs = params.toString();
-  return qs ? `${base}?${qs}` : base;
-}

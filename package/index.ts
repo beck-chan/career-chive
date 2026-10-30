@@ -6,7 +6,6 @@ export {
   CareerChiveOrganizationsPage,
   CareerChiveOverviewPage,
   CareerChiveSearchPage,
-  CareerChiveSettingsPage,
   careerchiveArchiveMetadata,
   careerchiveLoginMetadata,
   careerchiveOrganizationsMetadata,

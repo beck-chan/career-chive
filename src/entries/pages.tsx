@@ -1,4 +1,4 @@
-import { permanentRedirect, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { ArchiveView } from "../components/ArchiveView";
 import { LoginForm } from "../components/LoginForm";
 import { OverviewView } from "../components/OverviewView";
@@ -6,7 +6,7 @@ import { NotFoundBody } from "../components/PageStates";
 import { SearchShell } from "../components/SearchShell";
 import { SettingsForm } from "../components/SettingsForm";
 import { flags } from "../lib/flags";
-import { careerchiveHref, organizationsSearchHref } from "../lib/paths";
+import { careerchiveHref } from "../lib/paths";
 import { getSession } from "../lib/session";
 
 export {
@@ -63,15 +63,6 @@ export async function CareerChiveLoginPage() {
       </div>
     </div>
   );
-}
-
-export async function CareerChiveSettingsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ add?: string; org?: string; edit?: string }>;
-}) {
-  const { add, org, edit } = await searchParams;
-  permanentRedirect(organizationsSearchHref({ add, org, edit }));
 }
 
 export function CareerChiveNotFound() {

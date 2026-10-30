@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
-import { careerchivePath, careerchiveOrganizationsPath } from "./paths";
+import { careerchivePath } from "./paths";
 
 type Rewrite = { source: string; destination: string };
-
-type Redirect = { source: string; destination: string; permanent: boolean };
 
 function careerchiveRewrites(): Rewrite[] {
   const app = careerchivePath();
@@ -14,21 +12,8 @@ function careerchiveRewrites(): Rewrite[] {
   ];
 }
 
-function careerchiveRedirects(): Redirect[] {
-  const app = careerchivePath();
-  const oldSettings = app === "/" ? "/settings" : `${app}/settings`;
-  return [
-    {
-      source: oldSettings,
-      destination: careerchiveOrganizationsPath(),
-      permanent: true,
-    },
-  ];
-}
-
 export function withCareerChiveConfig(config: NextConfig = {}): NextConfig {
   const extraRewrites = careerchiveRewrites();
-  const extraRedirects = careerchiveRedirects();
 
   return {
     ...config,
@@ -61,13 +46,6 @@ export function withCareerChiveConfig(config: NextConfig = {}): NextConfig {
         afterFiles: resolved.afterFiles,
         fallback: [...(resolved.fallback ?? []), ...extraRewrites],
       };
-    },
-    async redirects() {
-      const existing = config.redirects;
-      if (!existing) return extraRedirects;
-      const resolved =
-        typeof existing === "function" ? await existing() : existing;
-      return [...resolved, ...extraRedirects];
     },
   };
 }
