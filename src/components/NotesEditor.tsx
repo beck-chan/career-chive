@@ -655,6 +655,12 @@ function NotesComposer({
     [namespace],
   );
 
+  // Lexical shows its placeholder only when the editor state looks empty.
+  // That state is applied in a deferred update, so the server render still
+  // sees an empty document and emits the hint while the client, which already
+  // has the note, does not. The saved markdown is the same on both sides.
+  const showPlaceholder = normalizeMarkdown(value) === "";
+
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="notes-editor">
@@ -669,10 +675,16 @@ function NotesComposer({
                     ? undefined
                     : { minHeight: `${Math.max(rows, 3) * 1.65}rem` }
                 }
-                aria-placeholder={placeholder}
-                placeholder={
-                  <div className="notes-editor-placeholder">{placeholder}</div>
-                }
+                {...(showPlaceholder
+                  ? {
+                      "aria-placeholder": placeholder,
+                      placeholder: (
+                        <div className="notes-editor-placeholder">
+                          {placeholder}
+                        </div>
+                      ),
+                    }
+                  : { placeholder: null })}
               />
             }
             placeholder={null}
