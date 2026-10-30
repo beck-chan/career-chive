@@ -1,0 +1,31 @@
+
+# Sends a CRON job to Supabase to keep your project active if you're on free tier (shh, but really, they're cool and you should pay them)
+# Configure repository secrets with your `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SECRET_KEY` for the job to run
+# `SUPABASE_SECRET_KEY` is the Data API secret (`sb_secret_…` from Publishable and secret API keys), not Legacy service_role
+# Success returns `[{"id":1}]` — anything else means the ping failed
+
+name: Supabase keep-alive
+
+on:
+  schedule:
+    # Pings Supabase every day at 12:15 PM UTC
+    - cron: "15 12 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping settings
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NEXT_PUBLIC_SUPABASE_URL:-}" ] || [ -z "${SUPABASE_SECRET_KEY:-}" ]; then
+            echo "Missing GitHub secrets NEXT_PUBLIC_SUPABASE_URL and/or SUPABASE_SECRET_KEY"
+            exit 1
+          fi
+          curl --fail --silent --show-error \
+            -H "apikey: ${SUPABASE_SECRET_KEY}" \
+            "${NEXT_PUBLIC_SUPABASE_URL}/rest/v1/settings?select=id&limit=1"
