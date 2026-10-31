@@ -847,7 +847,7 @@ export function SettingsForm({
                           </tr>
                         </tbody>
                       </table>
-                      {generateDaysHidden ? (
+                      {generateDaysHidden && !generateDaysUnset ? (
                         <p className="login-error" role="alert">
                           This organization&apos;s visibility is hidden. No entries will be auto-generated until it is made visible.
                         </p>
