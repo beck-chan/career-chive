@@ -558,6 +558,8 @@ export function SettingsForm({
   const generateDaysHidden = Boolean(
     isEditing && editing ? editing.hidden : selected?.hidden,
   );
+  const generateDaysUnset = !settings.autogenerateStartDate;
+  const generateDaysLocked = generateDaysHidden || generateDaysUnset;
   const orgDays = selected ? days[selected.id] : undefined;
   const canClearAll = Object.values(orgDays ?? {}).some((day) => !isBlankDay(day));
   const canClearRange =
@@ -796,9 +798,9 @@ export function SettingsForm({
                       </p>
                       <table
                         className={`overview-table weekday-table${
-                          generateDaysHidden ? " is-inert" : ""
+                          generateDaysLocked ? " is-inert" : ""
                         }`}
-                        inert={generateDaysHidden || undefined}
+                        inert={generateDaysLocked || undefined}
                       >
                         <thead>
                           <tr>
@@ -820,7 +822,7 @@ export function SettingsForm({
                                   <input
                                     type="checkbox"
                                     checked={checked}
-                                    disabled={!isEditing || generateDaysHidden}
+                                    disabled={!isEditing || generateDaysLocked}
                                     aria-label={day.label}
                                     onChange={() => {
                                       if (!editing) return;
@@ -848,6 +850,11 @@ export function SettingsForm({
                       {generateDaysHidden ? (
                         <p className="login-error" role="alert">
                           This organization&apos;s visibility is hidden. No entries will be auto-generated until it is made visible.
+                        </p>
+                      ) : null}
+                      {generateDaysUnset ? (
+                        <p className="login-error" role="alert">
+                          Set an Auto-generate From date to enable entry generation.
                         </p>
                       ) : null}
                     </section>
