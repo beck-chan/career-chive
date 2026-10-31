@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { Chonburi, Instrument_Serif, Jost } from "next/font/google";
 import { loadArchive } from "../app/actions/archive";
 import { AppChrome } from "../components/AppChrome";
@@ -23,12 +23,29 @@ const instrument = Instrument_Serif({
   weight: "400",
 });
 
-export async function CareerChiveLayout({
+async function CareerChiveFrame({ children }: { children: ReactNode }) {
+  const archive = await loadArchive({ ensure: true });
+  return (
+    <DemoProvider
+      initialData={archive.data}
+      initialStatus={
+        !archive.ok && "connection" in archive && archive.connection
+          ? "error"
+          : !archive.ok && "signedOut" in archive && archive.signedOut
+            ? "signedOut"
+            : "ready"
+      }
+    >
+      <AppChrome>{children}</AppChrome>
+    </DemoProvider>
+  );
+}
+
+export function CareerChiveLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  const archive = await loadArchive({ ensure: true });
   return (
     <>
       <script
@@ -41,18 +58,9 @@ export async function CareerChiveLayout({
         data-theme="light"
         suppressHydrationWarning
       >
-        <DemoProvider
-          initialData={archive.data}
-          initialStatus={
-            !archive.ok && "connection" in archive && archive.connection
-              ? "error"
-              : !archive.ok && "signedOut" in archive && archive.signedOut
-                ? "signedOut"
-                : "ready"
-          }
-        >
-          <AppChrome>{children}</AppChrome>
-        </DemoProvider>
+        <Suspense fallback={null}>
+          <CareerChiveFrame>{children}</CareerChiveFrame>
+        </Suspense>
       </div>
     </>
   );
