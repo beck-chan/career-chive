@@ -47,7 +47,7 @@ export const careerchiveLoginMetadata: Metadata = {
 };
 
 export const careerchiveNotFoundMetadata: Metadata = {
-  title: "Not Found",
+  title: "404",
   description,
 };
 
