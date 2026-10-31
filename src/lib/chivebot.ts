@@ -13,7 +13,7 @@ import { flags } from "./flags";
 import { embedText, embedTexts, isGeminiError } from "./gemini";
 
 export const CHIVEBOT_SYSTEM_PROMPT =
-  "You are ChiveBot for CareerChive. Answer only from the archive excerpts provided. Prefer a short paragraph. When you refer to a specific day, include an inline markdown link to that Archive day. Use bulleted lists if you need to link to more than three days. Only cite days from the excerpts; days before Archive Start, before Date Active, or on or after Date Inactive are not in this archive view. If a day or organization is marked as a hidden organization, say that in the reply. If the excerpts do not contain the answer, say you could not find anything in the archive. Do not fabricate entries.";
+  "You are ChiveBot for CareerChive. Answer only from the archive excerpts provided. Prefer a short paragraph. When you refer to a specific day, include an inline markdown link to that Archive day. Use bulleted lists if you need to link to more than three days. Only cite days from the excerpts; days before Archive Start, before Date Active, or on or after Date Inactive are not in this archive view. Questions about organizations use the organization list, which includes every organization even when it has no days in this archive view. If a day or organization is marked as a hidden organization, say that in the reply. If the excerpts do not contain the answer, say you could not find anything in the archive. Do not fabricate entries.";
 
 export const CHIVEBOT_MATCH_COUNT = 16;
 const EMBED_BATCH = 16;
@@ -404,6 +404,15 @@ export async function loadArchiveOverview(client: SupabaseClient) {
   const today = todayIso(undefined, settingsRow?.timezone);
   const bounds = new Map<string, { minIso: string; maxIso: string }>();
   const hiddenByOrg = new Map<string, boolean>();
+  type OrgTotal = {
+    name: string;
+    total: number;
+    filled: number;
+    hidden: boolean;
+    dateActive: string;
+    dateInactive: string;
+  };
+  const totals = new Map<string, OrgTotal>();
   for (const org of (orgsRes.data ?? []) as {
     id: string;
     name: string;
@@ -411,9 +420,18 @@ export async function loadArchiveOverview(client: SupabaseClient) {
     date_inactive: string | null;
     hidden: boolean | null;
   }[]) {
+    const dateActive = String(org.date_active ?? "").slice(0, 10);
+    const dateInactive = String(org.date_inactive ?? "").slice(0, 10);
     orgNames.set(org.id, org.name);
     hiddenByOrg.set(org.id, Boolean(org.hidden));
-    const dateActive = String(org.date_active ?? "").slice(0, 10);
+    totals.set(org.id, {
+      name: org.name,
+      total: 0,
+      filled: 0,
+      hidden: Boolean(org.hidden),
+      dateActive,
+      dateInactive,
+    });
     if (!dateActive) {
       bounds.set(org.id, { minIso: today, maxIso: "" });
       continue;
@@ -421,7 +439,7 @@ export async function loadArchiveOverview(client: SupabaseClient) {
     const { minIso, maxIso } = loggingWindow(
       archiveStart,
       dateActive,
-      String(org.date_inactive ?? "").slice(0, 10),
+      dateInactive,
       today,
     );
     bounds.set(org.id, { minIso, maxIso });
@@ -470,18 +488,6 @@ export async function loadArchiveOverview(client: SupabaseClient) {
   };
   const filled: OverviewDay[] = [];
   const empty: OverviewDay[] = [];
-  const totals = new Map<
-    string,
-    { name: string; total: number; filled: number; hidden: boolean }
-  >();
-  for (const org of orgNames) {
-    totals.set(org[0], {
-      name: org[1],
-      total: 0,
-      filled: 0,
-      hidden: hiddenByOrg.get(org[0]) ?? false,
-    });
-  }
   for (const row of dayRows) {
     const iso = row.work_date.slice(0, 10);
     const org = totals.get(row.organization_id) ?? {
@@ -489,6 +495,8 @@ export async function loadArchiveOverview(client: SupabaseClient) {
       total: 0,
       filled: 0,
       hidden: hiddenByOrg.get(row.organization_id) ?? false,
+      dateActive: "",
+      dateInactive: "",
     };
     org.total += 1;
     const href = `/?org=${encodeURIComponent(row.organization_id)}&iso=${encodeURIComponent(iso)}`;
@@ -521,12 +529,14 @@ export async function loadArchiveOverview(client: SupabaseClient) {
   filled.sort(byNewest);
   empty.sort(byNewest);
 
+  const hiddenOrgCount = [...totals.values()].filter((org) => org.hidden).length;
   const orgLines = [...totals.values()]
-    .filter((org) => org.total > 0)
     .sort((a, b) => a.name.localeCompare(b.name))
     .map((org) => {
       const hidden = org.hidden ? " (hidden organization)" : "";
-      return `- ${org.name}${hidden}: ${org.filled} filled-in / ${org.total} total days (${org.total - org.filled} empty logs)`;
+      const dateActive = org.dateActive || "none";
+      const dateInactive = org.dateInactive || "none";
+      return `- ${org.name}${hidden}: Date Active ${dateActive}, Date Inactive ${dateInactive}. In this archive view: ${org.filled} filled-in / ${org.total} total days (${org.total - org.filled} empty logs)`;
     });
   const wholeFilled = filled.length;
   const wholeTotal = filled.length + empty.length;
@@ -553,7 +563,9 @@ export async function loadArchiveOverview(client: SupabaseClient) {
 
   const text = [
     `Whole archive: ${wholeFilled} filled-in entries / ${wholeTotal} total day rows. Empty logs are not content, but each still has an organization and a date.`,
-    orgLines.length ? `By organization:\n${orgLines.join("\n")}` : "No organizations.",
+    orgLines.length
+      ? `Organizations: ${totals.size} total, ${hiddenOrgCount} hidden. This list is every organization and does not depend on which days are in the archive view.\n${orgLines.join("\n")}`
+      : "No organizations.",
     filledLines.length
       ? `Filled-in days (newest first):\n${filledLines.join("\n")}`
       : "No days have notes, comments, work, citations, attendance, or a rating.",
@@ -766,7 +778,7 @@ export function buildGeneratePrompt(
     : "No field excerpts were close to this question.";
   return `Archive excerpts:
 
-Overview of every organization and day inside Archive Start and each organization's Date Active / Date Inactive (use this for counts, totals, empty logs, and whether days have content). Empty logs are not filled-in entries, but they do have an organization and a date — use those listed links when asked about them. Do not cite days that are not in this overview.
+The Organizations section lists every organization, including hidden ones and ones with no days in this view. Use it for questions about organizations: how many, which are hidden, names, Date Active, and Date Inactive. Day lists and the "in this archive view" day counts only include days inside Archive Start and each organization's Date Active / Date Inactive. Empty logs are not filled-in entries, but they do have an organization and a date — use those listed links when asked about them. Do not cite days that are not in this overview.
 ${overview}
 
 Field excerpts (use these for quotes, work items, notes, comments, ratings, attendance):

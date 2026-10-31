@@ -1310,7 +1310,7 @@ export function SearchShell() {
               <span className="sr-only">Message</span>
               <textarea
                 rows={2}
-                placeholder="Ask ChiveBot about your archive entries ..."
+                placeholder="Ask ChiveBot about your archive ..."
                 value={chatDraft}
                 disabled={!composeOn || chatBusy}
                 onChange={(event) => setChatDraft(event.target.value)}
