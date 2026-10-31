@@ -3,6 +3,7 @@ export {
   CareerChiveArchivePage,
   CareerChiveLoginPage,
   CareerChiveNotFound,
+  CareerChiveUnknownPage,
   CareerChiveOrganizationsPage,
   CareerChiveOverviewPage,
   CareerChiveSearchPage,

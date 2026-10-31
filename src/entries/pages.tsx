@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ArchiveView } from "../components/ArchiveView";
 import { LoginForm } from "../components/LoginForm";
 import { OverviewView } from "../components/OverviewView";
@@ -74,4 +74,8 @@ export function CareerChiveNotFound() {
       </div>
     </div>
   );
+}
+
+export function CareerChiveUnknownPage() {
+  notFound();
 }
