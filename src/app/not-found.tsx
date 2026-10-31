@@ -1,1 +1,4 @@
-export { CareerChiveNotFound as default } from "../entries/pages";
+export {
+  CareerChiveNotFound as default,
+  careerchiveNotFoundMetadata as metadata,
+} from "../entries/pages";
