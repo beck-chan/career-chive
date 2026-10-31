@@ -1569,7 +1569,7 @@ input[type="checkbox"]:focus-visible {
   min-height: 0;
   height: calc(100dvh - var(--header-height) - var(--header-gap));
   max-height: calc(100dvh - var(--header-height) - var(--header-gap));
-  padding: 2.5rem 2.75rem 4rem 0;
+  padding: 2.5rem 2.85rem 4rem 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -1951,6 +1951,27 @@ input[type="checkbox"]:focus-visible {
 
 .org-name-menu .page-title {
   margin: 0;
+}
+
+.day-heading .day-title,
+.day-heading .day-title-picker {
+  flex-shrink: 0;
+}
+
+.day-heading .org-name-menu {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.day-heading .org-name-menu .page-title {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
 }
 
 .org-name-menu-list {
@@ -2461,6 +2482,15 @@ input[type="checkbox"]:focus-visible {
 .org-sidebar-nav button.is-active,
 .org-sidebar-nav button.is-active:hover {
   color: var(--chive);
+}
+
+.org-sidebar .org-sidebar-nav button,
+.org-name-menu-list .org-sidebar-nav button {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding-left: 1em;
+  text-indent: -1em;
+  overflow-wrap: break-word;
 }
 
 .col-copy {
@@ -4252,11 +4282,26 @@ input[type="checkbox"]:focus-visible {
 }
 
 @media (max-width: 1440px) {
-  .app-main:has(.page-cols) {
+  .app-main {
     margin-left: 0.4rem;
     margin-right: 0.4rem;
     padding-left: 0.35rem;
     padding-right: 0.35rem;
+  }
+}
+
+@media (max-width: 3400px) {
+  .app-main:has(.page-cols) {
+    margin-left: clamp(0.5rem, 2.2vw, 3.5rem);
+    margin-right: clamp(0.5rem, 2.2vw, 3.5rem);
+    padding-left: clamp(0.75rem, 3.2vw, 6rem);
+    padding-right: clamp(0.75rem, 3.2vw, 6rem);
+  }
+
+  .org-sidebar {
+    margin-left: calc(
+      3.5rem - clamp(0.5rem, 2.2vw, 3.5rem) - clamp(0.75rem, 3.2vw, 6rem)
+    );
   }
 }
 
