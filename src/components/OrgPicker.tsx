@@ -136,7 +136,6 @@ export function OrgNameMenu({
         className="page-title org-back"
         aria-expanded={open}
         aria-haspopup="dialog"
-        title={name}
         onClick={() => setOpen((current) => !current)}
       >
         {name}
