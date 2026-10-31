@@ -10,9 +10,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "supabase/**",
-    "features/reports/**",
-    "features/support/.auth/**",
   ]),
   {
     ...recommended,

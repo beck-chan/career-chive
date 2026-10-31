@@ -341,7 +341,7 @@ export function SettingsForm({
   if (adding && editing) {
     listed.push({
       ...editing,
-      name: editing.name.trim() || "new organization",
+      name: editing.name.trim() || "Add Organization",
     });
   }
   const sortedOrgs = sortOrgs(listed, sortOrder);

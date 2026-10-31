@@ -6,7 +6,6 @@ import type { Org, OrgSort, OrgStatusFilter } from "../lib/data";
 
 export {
   organizationAddHref,
-  organizationHref,
   organizationEditHref,
 } from "../lib/paths";
 

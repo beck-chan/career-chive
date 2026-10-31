@@ -11,12 +11,6 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   { rules: jsxA11yOff },
-  {
-    files: ["**/*.cjs"],
-    rules: {
-      "@typescript-eslint/no-require-imports": "off",
-    },
-  },
   globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
 ]);
 

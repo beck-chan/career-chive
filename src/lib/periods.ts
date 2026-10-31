@@ -72,11 +72,7 @@ export function weekLabelParts(cursor: string) {
   };
 }
 
-export function periodLabel(
-  period: Period,
-  cursor: string,
-  options?: { weekBreak?: boolean },
-) {
+export function periodLabel(period: Period, cursor: string) {
   if (period === "all") return "All Time";
   if (period === "rolling") {
     return (
@@ -87,7 +83,6 @@ export function periodLabel(
   if (Number.isNaN(date.getTime())) return "";
   if (period === "week") {
     const { year, startText, endText } = weekRangeParts(cursor);
-    if (options?.weekBreak) return `${year} / ${startText}\n– ${endText}`;
     return `${year} / ${startText} – ${endText}`;
   }
   if (period === "month") {

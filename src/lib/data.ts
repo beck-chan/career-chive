@@ -300,13 +300,10 @@ export function newOrganizationId(name: string) {
   return `org_${orgNameSlug(name)}_${randomOrgSuffix()}`;
 }
 
-export function orgNameInUse(name: string, orgs: Org[], exceptId?: string) {
+export function orgNameInUse(name: string, orgs: Org[]) {
   const needle = name.trim().toLowerCase();
   if (!needle) return false;
-  return orgs.some(
-    (org) =>
-      org.id !== exceptId && org.name.trim().toLowerCase() === needle,
-  );
+  return orgs.some((org) => org.name.trim().toLowerCase() === needle);
 }
 
 export function blankOrg(): Org {
