@@ -46,6 +46,11 @@ export const careerchiveLoginMetadata: Metadata = {
   description,
 };
 
+export const careerchiveNotFoundMetadata: Metadata = {
+  title: "Not Found",
+  description,
+};
+
 export const careerchiveViewport: Viewport = {
   colorScheme: "light dark",
 };

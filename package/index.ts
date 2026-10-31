@@ -10,6 +10,7 @@ export {
   careerchiveArchiveMetadata,
   careerchiveMetadata,
   careerchiveLoginMetadata,
+  careerchiveNotFoundMetadata,
   careerchiveOrganizationsMetadata,
   careerchiveOverviewMetadata,
   careerchiveSearchMetadata,
