@@ -7,12 +7,7 @@ import {
 } from "../entries/metadata";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  ...careerchiveMetadata,
-  icons: {
-    icon: { url: "/favicon-light.svg", type: "image/svg+xml" },
-  },
-};
+export const metadata: Metadata = careerchiveMetadata;
 
 export const viewport: Viewport = careerchiveViewport;
 

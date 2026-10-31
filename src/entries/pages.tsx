@@ -11,6 +11,7 @@ import { getSession } from "../lib/session";
 
 export {
   careerchiveLoginMetadata,
+  careerchiveMetadata,
   careerchiveMetadata as careerchiveArchiveMetadata,
   careerchiveOrganizationsMetadata,
   careerchiveOverviewMetadata,
