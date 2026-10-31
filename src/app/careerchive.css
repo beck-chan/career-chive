@@ -1953,6 +1953,27 @@ input[type="checkbox"]:focus-visible {
   margin: 0;
 }
 
+.day-heading .day-title,
+.day-heading .day-title-picker {
+  flex-shrink: 0;
+}
+
+.day-heading .org-name-menu {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.day-heading .org-name-menu .page-title {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
 .org-name-menu-list {
   position: absolute;
   top: calc(100% + 0.45rem);
@@ -2461,6 +2482,15 @@ input[type="checkbox"]:focus-visible {
 .org-sidebar-nav button.is-active,
 .org-sidebar-nav button.is-active:hover {
   color: var(--chive);
+}
+
+.org-sidebar .org-sidebar-nav button,
+.org-name-menu-list .org-sidebar-nav button {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding-left: 1em;
+  text-indent: -1em;
+  overflow-wrap: break-word;
 }
 
 .col-copy {
