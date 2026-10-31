@@ -49,6 +49,7 @@ export const careerchiveLoginMetadata: Metadata = {
 export const careerchiveNotFoundMetadata: Metadata = {
   title: "404",
   description,
+  robots: { index: false, follow: false },
 };
 
 export const careerchiveViewport: Viewport = {
